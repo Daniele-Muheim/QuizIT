@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/drawable-v24/correct_answer_stroke_bg.xml" value="0.2475" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/drawable-v24/default_answer_stroke_bg.xml" value="0.2475" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3795" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/drawable-v24/selected_option_stroke_bg.xml" value="0.338" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/drawable-v24/wrong_answer_stroke_bg.xml" value="0.2475" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/drawable/circle_image.xml" value="0.2805" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/drawable/circular.xml" value="0.2805" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/drawable/default_answer_stroke_bg.xml" value="0.2475" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/drawable/default_option_stroke_bg.xml" value="0.2475" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/drawable/ellipse_13.xml" value="0.2805" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3795" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/fragment_blank.xml" value="0.45018115942028986" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/fragment_blank2.xml" value="0.45018115942028986" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/fragment_host.xml" value="0.33" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/fragment_item.xml" value="0.37447916666666664" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/fragment_item_list.xml" value="0.36041666666666666" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/fragment_leaderboard.xml" value="0.25" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/fragment_quiz_questions.xml" value="0.25" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/fragment_result.xml" value="0.33" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/main_activity.xml" value="0.45018115942028986" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/main_fragment.xml" value="0.45018115942028986" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/test.xml" value="0.3796875" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

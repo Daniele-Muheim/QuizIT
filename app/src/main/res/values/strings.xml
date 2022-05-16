@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">QuizIT</string>
+    <string name="welcome">Willkommen</string>
+    <string name="start_quiz">Start Quiz</string>
+    <string name="username_input_text">Benutzernamen eingeben</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="submit">Überprüfen</string>
+    <string name="abort">ABBRECHEN</string>
+    <string name="result_message">Dein Resultat</string>
+    <string name="retryMessage">ERNEUT VERSUCHEN</string>
+    <string name="correct_answers">10 von 10 Antworten richtig</string>
+    <string name="username">Username</string>
+    <string name="answer1">Antwort 1</string>
+    <string name="answer2">Antwort 2</string>
+    <string name="answer3">Antwort 3</string>
+    <string name="answer4">Antwort 4</string>
+    <string name="currentPosition">0/10</string>
+    <string name="score">10/10</string>
+    <string name="question">Welche Layout Pixel-Angabe ist in Kotlin nicht empfohlen?</string>
+    <string name="date">16.05.2022</string>
 </resources>
