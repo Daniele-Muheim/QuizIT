@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
-import android.util.Log.INFO
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import ch.hslu.mobpro.QuizIT.Constants
-import ch.hslu.mobpro.QuizIT.Question
-import ch.hslu.mobpro.QuizIT.QuizViewModel
-import ch.hslu.mobpro.QuizIT.R
+import ch.hslu.mobpro.QuizIT.*
 import ch.hslu.mobpro.QuizIT.databinding.FragmentQuizQuestionsBinding
 
 
@@ -30,6 +26,7 @@ class QuizQuestionsFragment : Fragment(R.layout.fragment_quiz_questions), View.O
     private var selectedAnswerPosition = 0
     private var correctAnswersCounter = 0
     private var username: String? = null
+    private var choiceSetFlag = false
     private val quizViewModel: QuizViewModel by activityViewModels()
 
     companion object {
@@ -66,6 +63,7 @@ class QuizQuestionsFragment : Fragment(R.layout.fragment_quiz_questions), View.O
             questionList = listOfQuestion
             Log.i("questions-api", questionList.toString() )
         setQuestions()
+        quizViewModel.startTimer()
         }
         setOnClickListeners()
     }
@@ -124,6 +122,9 @@ class QuizQuestionsFragment : Fragment(R.layout.fragment_quiz_questions), View.O
     }
 
     override fun onClick(view: View?) {
+        if(choiceSetFlag){
+            return
+        }
         when(view?.id) {
             R.id.answer_one -> {
                 selectedAnswer(viewBinding.answerOne, 1)
@@ -144,11 +145,12 @@ class QuizQuestionsFragment : Fragment(R.layout.fragment_quiz_questions), View.O
     private  fun clickSubmitButton() {
         if (selectedAnswerPosition == 0 && viewBinding.submitButton.text != "Überprüfen") {
             currentQuestionPosition++
-
+            choiceSetFlag = false
             when{
                 currentQuestionPosition <= questionList!!.size -> {
                     setQuestions()
                 } else -> {
+                postResultToApi()
                 parentFragmentManager
                     .beginTransaction()
                     .replace(R.id.hostFragment, ResultFragment.newInstance(username.toString(), correctAnswersCounter, questionList!!.size))
@@ -171,7 +173,7 @@ class QuizQuestionsFragment : Fragment(R.layout.fragment_quiz_questions), View.O
                 viewBinding.submitButton.text = "NÄCHSTE FRAGE"
             }
             selectedAnswerPosition = 0
-
+            choiceSetFlag = true
         } else if (selectedAnswerPosition == 0){
             val dialogBuilder = AlertDialog.Builder(requireActivity())
             dialogBuilder.setMessage("Wählen Sie eine Antwort aus!")
@@ -254,6 +256,11 @@ class QuizQuestionsFragment : Fragment(R.layout.fragment_quiz_questions), View.O
 
     fun serverRequests(){
         quizViewModel.getQuestions()
+    }
+
+    fun postResultToApi(){
+        val score = Score(quizViewModel.stopTimer(),correctAnswersCounter, quizViewModel.getUsername()!!)
+        quizViewModel.postScore(score)
     }
 
 }
