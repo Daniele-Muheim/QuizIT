@@ -17,7 +17,7 @@ interface QuizITAPIService {
 }
 
 data class Question (
-    val _id: Int,
+    val _id: String,
     val question: String,
     val answerOne: String,
     val answerTwo: String,

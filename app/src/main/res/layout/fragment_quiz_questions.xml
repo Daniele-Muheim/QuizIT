@@ -35,7 +35,7 @@
                 android:layout_width="300dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="10dp"
-                android:max="10"
+
                 android:minHeight="50dp"
                 android:progress="0"
                 app:layout_constraintBottom_toTopOf="@+id/answer_one"

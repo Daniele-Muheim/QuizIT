@@ -53,10 +53,7 @@ class QuizQuestionsFragment : Fragment(R.layout.fragment_quiz_questions), View.O
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        this.questionList = quizViewModel.getQuestions()
-        //this.questionList = Constants.getQuestions()
-        Log.i("quizFragment", questionList.toString())
-
+        serverRequests()
         arguments?.let {
             username = quizViewModel.getUsername()
         }
@@ -65,7 +62,11 @@ class QuizQuestionsFragment : Fragment(R.layout.fragment_quiz_questions), View.O
 
     override fun onStart() {
         super.onStart()
+        quizViewModel.questionSet.observe(this) { listOfQuestion ->
+            questionList = listOfQuestion
+            Log.i("questions-api", questionList.toString() )
         setQuestions()
+        }
         setOnClickListeners()
     }
     private fun setOnClickListeners() {
@@ -84,6 +85,7 @@ class QuizQuestionsFragment : Fragment(R.layout.fragment_quiz_questions), View.O
 
         viewBinding.submitButton.text = "Überprüfen"
         viewBinding.progressbar.progress = currentQuestionPosition
+        viewBinding.progressbar.max = questionList!!.size
         viewBinding.progressbarText.text = "$currentQuestionPosition" + "/" + viewBinding.progressbar.max
         viewBinding.questionId.text = question.question
         viewBinding.answerOne.text = question.answerOne
@@ -248,6 +250,10 @@ class QuizQuestionsFragment : Fragment(R.layout.fragment_quiz_questions), View.O
                 it.context, R.drawable.selected_option_stroke_bg
             )
         }
+    }
+
+    fun serverRequests(){
+        quizViewModel.getQuestions()
     }
 
 }
