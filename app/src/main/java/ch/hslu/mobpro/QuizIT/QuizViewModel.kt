@@ -14,10 +14,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.net.HttpURLConnection
 
+
 class QuizViewModel(application: Application): AndroidViewModel(application) {
     var questionSet: MutableLiveData<List<Question>> = MutableLiveData()
     val leaderboard: MutableLiveData<List<Score?>> = MutableLiveData()
     val prefs = PreferenceManager.getDefaultSharedPreferences(getApplication<Application>().applicationContext)
+    var startTimeStampInMilliSeconds: Long = 0
+    var endTimeStampInMilliSeconds: Long = 0
+    
     private val retrofit: Retrofit = Retrofit.Builder()
         .client(OkHttpClient().newBuilder().build())
         .addConverterFactory(MoshiConverterFactory.create())
@@ -26,7 +30,7 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
 
     private val quizITAPIService = retrofit.create(QuizITAPIService::class.java)
 
-    fun getQuestions(): MutableLiveData<List<Question>> {
+    fun getQuestions() {
         val call = quizITAPIService.getQuestions()
         call.enqueue(object : Callback<List<Question>> {
             override fun onResponse(call: Call<List<Question>>, response: Response<List<Question>>) {
@@ -42,7 +46,6 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
                 )
             }
         })
-        return questionSet
     }
 
     fun getLeaderBoard() {
@@ -64,14 +67,11 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
     }
 
 
-    fun postLeaderBoard(score : Score, onResult: (Score?) -> Unit) {
+    fun postScore(score: Score) {
         val call = quizITAPIService.postScore(score)
-
         call.enqueue(object : Callback<Score> {
             override fun onResponse(call: Call<Score>, response: Response<Score>) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
-                    val addScore = response.body()
-                    onResult(addScore)
                 }
             }
 
@@ -99,6 +99,14 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
 
     fun getUsername(): String? {
         return prefs.getString("USERNAME", "Benutzername")
+    }
+
+    fun startTimer() {
+        startTimeStampInMilliSeconds = System.currentTimeMillis()
+    }
+
+    fun stopTimer(): Long {
+        return System.currentTimeMillis()-startTimeStampInMilliSeconds
     }
 
 }
