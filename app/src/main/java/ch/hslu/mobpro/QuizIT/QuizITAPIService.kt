@@ -10,7 +10,7 @@ interface QuizITAPIService {
     fun getQuestions(): Call<List<Question>>
 
     @GET("leaderboard")
-    fun getLeaderBoard(): Call<Leaderboard>
+    fun getLeaderBoard(): Call<List<Score>>
 
     @POST("score")
     fun postScore(@Body score: Score): Call<Score>
