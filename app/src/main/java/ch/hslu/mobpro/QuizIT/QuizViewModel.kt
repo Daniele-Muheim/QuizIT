@@ -1,8 +1,11 @@
 package ch.hslu.mobpro.QuizIT
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.preference.PreferenceManager
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -11,33 +14,35 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.net.HttpURLConnection
 
-class QuizViewModel: ViewModel() {
-    val question: MutableLiveData<List<Question>> = MutableLiveData()
+class QuizViewModel(application: Application): AndroidViewModel(application) {
+    var questionSet: List<Question>? = null
     val leaderboard: MutableLiveData<List<Score?>> = MutableLiveData()
+    val prefs = PreferenceManager.getDefaultSharedPreferences(getApplication<Application>().applicationContext)
     private val retrofit: Retrofit = Retrofit.Builder()
         .client(OkHttpClient().newBuilder().build())
         .addConverterFactory(MoshiConverterFactory.create())
-        .baseUrl("https://apiurl.ch/quizIT/")
+        .baseUrl("http://localhost:8085/api/v1/")
         .build()
 
     private val quizITAPIService = retrofit.create(QuizITAPIService::class.java)
 
-    fun getQuestions() {
+    fun getQuestions(): List<Question>? {
         val call = quizITAPIService.getQuestions()
-        call.enqueue(object : Callback<QuestionSet> {
-            override fun onResponse(call: Call<QuestionSet>, response: Response<QuestionSet>) {
+        call.enqueue(object : Callback<List<Question>> {
+            override fun onResponse(call: Call<List<Question>>, response: Response<List<Question>>) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
-                    question.value = response.body()?.setOfQuestions
+                    Log.i("api-call", response.body().toString() )
+                    questionSet = response.body()
                 }
             }
-
-            override fun onFailure(call: Call<QuestionSet>, t: Throwable) {
+            override fun onFailure(call: Call<List<Question>>, t: Throwable) {
                 Log.e(
                     "QuizViewModel|getQuestions",
                     t.localizedMessage ?: "call to API onFailure()"
                 )
             }
         })
+        return questionSet
     }
 
     fun getLeaderBoard() {
@@ -80,8 +85,18 @@ class QuizViewModel: ViewModel() {
     }
 
     fun resetQuestionsData() {
-        question.value = emptyList()
+        questionSet = null
         leaderboard.value = emptyList()
+    }
+
+    fun setUsername(username: String){
+        val editor = prefs.edit()
+        editor.putString("USERNAME", username)
+        editor.apply()
+    }
+
+    fun getUsername(): String? {
+        return prefs.getString("USERNAME", "Benutzername")
     }
 
 }

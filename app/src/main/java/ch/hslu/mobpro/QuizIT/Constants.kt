@@ -9,6 +9,7 @@ class Constants {
         const val TOTAL_QUESTIONS = "total_question"
         const val CORRECT_ANSWERS = "correct_answers"
 
+      /*
         fun getQuestions(): ArrayList<Question> {
             val questionList = ArrayList<Question>()
 
@@ -54,6 +55,7 @@ class Constants {
 
             return questionList
         }
+            */
     }
 
 }

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
+import android.util.Log.INFO
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +13,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import ch.hslu.mobpro.QuizIT.Constants
 import ch.hslu.mobpro.QuizIT.Question
+import ch.hslu.mobpro.QuizIT.QuizViewModel
 import ch.hslu.mobpro.QuizIT.R
 import ch.hslu.mobpro.QuizIT.databinding.FragmentQuizQuestionsBinding
 
@@ -21,11 +25,12 @@ class QuizQuestionsFragment : Fragment(R.layout.fragment_quiz_questions), View.O
 
     private lateinit var viewBinding: FragmentQuizQuestionsBinding
     private val binding get() = viewBinding
-    private var questionList: ArrayList<Question>? = null
+    private var questionList: List<Question>? = null
     private var currentQuestionPosition = 1
     private var selectedAnswerPosition = 0
     private var correctAnswersCounter = 0
     private var username: String? = null
+    private val quizViewModel: QuizViewModel by activityViewModels()
 
     companion object {
         @JvmStatic
@@ -48,16 +53,21 @@ class QuizQuestionsFragment : Fragment(R.layout.fragment_quiz_questions), View.O
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        this.questionList = Constants.getQuestions()
+        this.questionList = quizViewModel.getQuestions()
+        //this.questionList = Constants.getQuestions()
+        Log.i("quizFragment", questionList.toString())
 
         arguments?.let {
-            username = it.getString(Constants.USER_NAME)
+            username = quizViewModel.getUsername()
         }
 
+    }
+
+    override fun onStart() {
+        super.onStart()
         setQuestions()
         setOnClickListeners()
     }
-
     private fun setOnClickListeners() {
         viewBinding.answerOne.setOnClickListener(this)
         viewBinding.answerTwo.setOnClickListener(this)
