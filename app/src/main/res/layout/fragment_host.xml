@@ -82,7 +82,6 @@
                                     android:id="@+id/textbox_name"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:hint="@string/username"
                                     app:layout_constraintBottom_toTopOf="@+id/start_button"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"

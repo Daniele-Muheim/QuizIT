@@ -7,7 +7,7 @@ import retrofit2.http.POST
 
 interface QuizITAPIService {
     @GET("questionSet")
-    fun getQuestions(): Call<QuestionSet>
+    fun getQuestions(): Call<List<Question>>
 
     @GET("leaderboard")
     fun getLeaderBoard(): Call<Leaderboard>
@@ -17,23 +17,21 @@ interface QuizITAPIService {
 }
 
 data class Question (
-    val id: Int,
+    val _id: String,
     val question: String,
     val answerOne: String,
     val answerTwo: String,
     val answerThree: String,
     val answerFour: String?,
-    val correctAnswer: Int
-)
-
-data class QuestionSet (
-    val setOfQuestions: List<Question>
+    val correctAnswer: Int,
+    val questionSet: Int
 )
 
 data class Score (
     val timeInMilliseconds: Int,
-    val score: Int
+    val score: Int,
+    val username: String
 )
 data class Leaderboard (
-    val topTenScoresAsList: List<Score>
+    val topTenScoresAsList: ArrayList<Score>
 )
