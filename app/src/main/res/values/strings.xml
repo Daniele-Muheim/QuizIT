@@ -18,4 +18,6 @@
     <string name="score">10/10</string>
     <string name="question">Welche Layout Pixel-Angabe ist in Kotlin nicht empfohlen?</string>
     <string name="date">16.05.2022</string>
+    <string name="time">2min 30sek</string>
+    <string name="startNewQuiz_button">Neues Quiz starten</string>
 </resources>

@@ -21,11 +21,13 @@
         <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/fragment_host.xml" value="0.33" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/fragment_item.xml" value="0.37447916666666664" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/fragment_item_list.xml" value="0.36041666666666666" />
-        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/fragment_leaderboard.xml" value="0.25" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/fragment_leaderboard.xml" value="0.33" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/fragment_quiz_questions.xml" value="0.25" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/fragment_result.xml" value="0.33" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/leaderboard_items.xml" value="0.33" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/main_activity.xml" value="0.45018115942028986" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/main_fragment.xml" value="0.45018115942028986" />
+        <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/recylerview_items.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/danie/AndroidStudioProjects/QuizIT/app/src/main/res/layout/test.xml" value="0.3796875" />
       </map>
     </option>
