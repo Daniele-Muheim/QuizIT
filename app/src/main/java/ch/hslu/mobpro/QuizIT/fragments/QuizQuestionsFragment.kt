@@ -254,11 +254,11 @@ class QuizQuestionsFragment : Fragment(R.layout.fragment_quiz_questions), View.O
         }
     }
 
-    fun serverRequests(){
+    private fun serverRequests(){
         quizViewModel.getQuestions()
     }
 
-    fun postResultToApi(){
+    private fun postResultToApi(){
         val score = Score(quizViewModel.stopTimer(),correctAnswersCounter, quizViewModel.getUsername()!!)
         quizViewModel.postScore(score)
     }

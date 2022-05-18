@@ -23,7 +23,6 @@ class LeaderboardFragment : Fragment(R.layout.fragment_leaderboard) {
     private val quizViewModel: QuizViewModel by activityViewModels()
     private var scoresAsList: List<Score>? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestLeaderboard()
@@ -57,14 +56,13 @@ class LeaderboardFragment : Fragment(R.layout.fragment_leaderboard) {
         val list = ArrayList<String>()
 
         for (Score in scoresAsList!!) {
-            var minutes: Long = ((Score.timeInMilliseconds/1000)/60)
-            var second: Long = ((Score.timeInMilliseconds/1000)%60)
-            var payload: String = minutes.toString() + "min " + second.toString() +"sec"
+            val minutes = ((Score.timeInMilliseconds/1000)/60)
+            val second = ((Score.timeInMilliseconds/1000)%60)
+            val payload = "$minutes min $second sec"
             list.add(payload)
         }
         return list
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -77,8 +75,8 @@ class LeaderboardFragment : Fragment(R.layout.fragment_leaderboard) {
 
     override fun onStart() {
         super.onStart()
-        quizViewModel.leaderboard.observe(this) { apileaderboard ->
-            scoresAsList = apileaderboard
+        quizViewModel.leaderboard.observe(this) { apiLeaderboard ->
+            scoresAsList = apiLeaderboard
             buildLeaderboard()
 
         }

@@ -21,7 +21,6 @@ class ItemAdapter(private val usernames: ArrayList<String>, private val scores: 
         )
     }
 
-
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val username = usernames[position]
@@ -33,7 +32,7 @@ class ItemAdapter(private val usernames: ArrayList<String>, private val scores: 
             } else {
                 viewBinding.username.text = username
             }
-            viewBinding.score.text = score+"/5"
+            viewBinding.score.text = "$score/5"
             viewBinding.time.text = time
         }
     }

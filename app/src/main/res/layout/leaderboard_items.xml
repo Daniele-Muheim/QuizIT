@@ -7,9 +7,9 @@
 
     <TextView
         android:id="@+id/username"
-        android:layout_width="133dp"
-        android:layout_height="20dp"
-        android:maxWidth="80dp"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:maxWidth="100dp"
         android:minWidth="70dp"
         android:text="@string/username"
         android:textAppearance="?attr/textAppearanceHeadline6"
@@ -43,6 +43,5 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/score"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

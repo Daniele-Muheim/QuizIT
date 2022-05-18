@@ -4,7 +4,6 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.preference.PreferenceManager
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -18,9 +17,8 @@ import java.net.HttpURLConnection
 class QuizViewModel(application: Application): AndroidViewModel(application) {
     var questionSet: MutableLiveData<List<Question>> = MutableLiveData()
     val leaderboard: MutableLiveData<List<Score>> = MutableLiveData()
-    val prefs = PreferenceManager.getDefaultSharedPreferences(getApplication<Application>().applicationContext)
+    val prefs = PreferenceManager.getDefaultSharedPreferences(getApplication<Application>().applicationContext)!!
     var startTimeStampInMilliSeconds: Long = 0
-    var endTimeStampInMilliSeconds: Long = 0
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .client(OkHttpClient().newBuilder().build())
@@ -87,8 +85,6 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
         questionSet.value = emptyList()
         leaderboard.value = emptyList()
     }
-
-
 
     fun setUsername(username: String){
         val editor = prefs.edit()
