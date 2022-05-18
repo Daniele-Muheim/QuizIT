@@ -40,6 +40,7 @@ class HostFragment : Fragment(R.layout.fragment_host) {
         viewBinding.textboxName.setText(quizViewModel.getUsername())
 
     }
+
     private fun clickStartButton() {
         if (viewBinding.textboxName.text.toString().isEmpty()) {
             Toast.makeText(requireActivity(), "Bitte gib einen Namen ein", Toast.LENGTH_SHORT).show()
