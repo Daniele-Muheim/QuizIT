@@ -12,8 +12,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.net.HttpURLConnection
 
 class QuizViewModel: ViewModel() {
-    val question: MutableLiveData<List<QuestionSet?>> = MutableLiveData()
-    val leaderboard: MutableLiveData<List<Leaderboard?>> = MutableLiveData()
+    val question: MutableLiveData<List<Question>> = MutableLiveData()
+    val leaderboard: MutableLiveData<List<Score?>> = MutableLiveData()
     private val retrofit: Retrofit = Retrofit.Builder()
         .client(OkHttpClient().newBuilder().build())
         .addConverterFactory(MoshiConverterFactory.create())
@@ -27,7 +27,7 @@ class QuizViewModel: ViewModel() {
         call.enqueue(object : Callback<QuestionSet> {
             override fun onResponse(call: Call<QuestionSet>, response: Response<QuestionSet>) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
-                    question.value = listOf(response.body())
+                    question.value = response.body()?.setOfQuestions
                 }
             }
 
@@ -45,7 +45,7 @@ class QuizViewModel: ViewModel() {
         call.enqueue(object : Callback<Leaderboard> {
             override fun onResponse(call: Call<Leaderboard>, response: Response<Leaderboard>) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
-                    leaderboard.value = listOf(response.body())
+                    leaderboard.value = response.body()?.topTenScoresAsList
                 }
             }
 
