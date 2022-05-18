@@ -28,10 +28,11 @@ data class Question (
 )
 
 data class Score (
-    val timeInMilliseconds: Int,
+    val timeInMilliseconds: Long,
     val score: Int,
     val username: String
 )
+
 data class Leaderboard (
     val topTenScoresAsList: ArrayList<Score>
 )
