@@ -17,15 +17,15 @@ import java.net.HttpURLConnection
 
 class QuizViewModel(application: Application): AndroidViewModel(application) {
     var questionSet: MutableLiveData<List<Question>> = MutableLiveData()
-    val leaderboard: MutableLiveData<List<Score?>> = MutableLiveData()
+    val leaderboard: MutableLiveData<List<Score>> = MutableLiveData()
     val prefs = PreferenceManager.getDefaultSharedPreferences(getApplication<Application>().applicationContext)
     var startTimeStampInMilliSeconds: Long = 0
     var endTimeStampInMilliSeconds: Long = 0
-    
+
     private val retrofit: Retrofit = Retrofit.Builder()
         .client(OkHttpClient().newBuilder().build())
         .addConverterFactory(MoshiConverterFactory.create())
-        .baseUrl("http://192.168.1.130:8085/api/v1/")
+        .baseUrl("http://178.196.29.181:8085/api/v1/")
         .build()
 
     private val quizITAPIService = retrofit.create(QuizITAPIService::class.java)
@@ -50,16 +50,15 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
 
     fun getLeaderBoard() {
         val call = quizITAPIService.getLeaderBoard()
-        call.enqueue(object : Callback<Leaderboard> {
-            override fun onResponse(call: Call<Leaderboard>, response: Response<Leaderboard>) {
+        call.enqueue(object : Callback<List<Score>> {
+            override fun onResponse(call: Call<List<Score>>, response: Response<List<Score>>) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
-                    leaderboard.value = response.body()?.topTenScoresAsList
+                    leaderboard.value = response.body()
                 }
             }
-
-            override fun onFailure(call: Call<Leaderboard>, t: Throwable) {
+            override fun onFailure(call: Call<List<Score>>, t: Throwable) {
                 Log.e(
-                    "QuizViewModel|getQuestions",
+                    "QuizViewModel|getLeaderBoard",
                     t.localizedMessage ?: "call to API onFailure()"
                 )
             }
