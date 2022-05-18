@@ -37,7 +37,7 @@ class HostFragment : Fragment(R.layout.fragment_host) {
 
         viewBinding.startButton.setOnClickListener { clickStartButton() }
         viewBinding.leaderboardButton.setOnClickListener { clickLeaderboardButton() }
-        viewBinding.textboxName.setHint(quizViewModel.getUsername())
+        viewBinding.textboxName.setText(quizViewModel.getUsername())
 
     }
     private fun clickStartButton() {
