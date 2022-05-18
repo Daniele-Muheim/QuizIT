@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ch.hslu.mobpro.QuizIT.databinding.LeaderboardItemsBinding
 
-class ItemAdapter(private val items: ArrayList<String>): RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+class ItemAdapter(private val usernames: ArrayList<String>, private val scores: ArrayList<String>, private val times: ArrayList<String> ): RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     inner class ItemViewHolder(val viewBinding: LeaderboardItemsBinding) :RecyclerView.ViewHolder(viewBinding.root)
 
@@ -24,18 +24,22 @@ class ItemAdapter(private val items: ArrayList<String>): RecyclerView.Adapter<It
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val item = items[position]
+        val username = usernames[position]
+        val score = scores[position]
+        val time = times[position]
         with(holder) {
-            viewBinding.username.text = item
-            viewBinding.score.text = items.size.toString()
-            viewBinding.time.text = "2min 30sek"
+            if(username.length > 12){
+                viewBinding.username.text = username.subSequence(0,12)
+            } else {
+                viewBinding.username.text = username
+            }
+            viewBinding.score.text = score+"/5"
+            viewBinding.time.text = time
         }
     }
 
-
     override fun getItemCount(): Int {
-       return items.size
+       return usernames.size
     }
-
 }
 
