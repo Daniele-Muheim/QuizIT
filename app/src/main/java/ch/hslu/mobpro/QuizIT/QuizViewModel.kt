@@ -15,24 +15,24 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.net.HttpURLConnection
 
 class QuizViewModel(application: Application): AndroidViewModel(application) {
-    var questionSet: List<Question>? = null
+    var questionSet: MutableLiveData<List<Question>> = MutableLiveData()
     val leaderboard: MutableLiveData<List<Score?>> = MutableLiveData()
     val prefs = PreferenceManager.getDefaultSharedPreferences(getApplication<Application>().applicationContext)
     private val retrofit: Retrofit = Retrofit.Builder()
         .client(OkHttpClient().newBuilder().build())
         .addConverterFactory(MoshiConverterFactory.create())
-        .baseUrl("http://localhost:8085/api/v1/")
+        .baseUrl("http://192.168.1.130:8085/api/v1/")
         .build()
 
     private val quizITAPIService = retrofit.create(QuizITAPIService::class.java)
 
-    fun getQuestions(): List<Question>? {
+    fun getQuestions(): MutableLiveData<List<Question>> {
         val call = quizITAPIService.getQuestions()
         call.enqueue(object : Callback<List<Question>> {
             override fun onResponse(call: Call<List<Question>>, response: Response<List<Question>>) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
                     Log.i("api-call", response.body().toString() )
-                    questionSet = response.body()
+                    questionSet.value = response.body().orEmpty()
                 }
             }
             override fun onFailure(call: Call<List<Question>>, t: Throwable) {
@@ -85,9 +85,11 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun resetQuestionsData() {
-        questionSet = null
+        questionSet.value = emptyList()
         leaderboard.value = emptyList()
     }
+
+
 
     fun setUsername(username: String){
         val editor = prefs.edit()
