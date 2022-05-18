@@ -47,6 +47,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
         }
 
         viewBinding.retry.setOnClickListener { clickRetryButton() }
+        viewBinding.leaderboardButton.setOnClickListener { clickLeaderboardButton() }
         viewBinding.correctAnswers.text = "$correctAnswers von $totalQuestions Antworten richtig"
 
     }
@@ -55,6 +56,14 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
         parentFragmentManager
             .beginTransaction()
             .replace(R.id.hostFragment, HostFragment.newInstance())
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun clickLeaderboardButton(){
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.hostFragment, LeaderboardFragment.newInstance())
             .addToBackStack(null)
             .commit()
     }
