@@ -36,6 +36,7 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
     private val quizITAPIService = retrofit.create(QuizITAPIService::class.java)
 
     fun getQuestions() {
+        setEmptyQuestionSet()
         val call = quizITAPIService.getQuestions()
         call.enqueue(object : Callback<List<Question>> {
             override fun onResponse(call: Call<List<Question>>, response: Response<List<Question>>) {
@@ -103,9 +104,9 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
         })
     }
 
-    fun resetQuestionsData() {
-        questionSet.value = emptyList()
-        leaderboard.value = emptyList()
+    fun setEmptyQuestionSet() {
+        val question: List<Question> =  listOf(Question("id", "", "", "", "", "", 404, 0))
+        questionSet.value = question
     }
 
     fun setUsername(username: String){
