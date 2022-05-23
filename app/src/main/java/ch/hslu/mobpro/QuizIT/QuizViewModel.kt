@@ -64,15 +64,15 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
                     } else {
                         appDb.ScoreDao().updateScore(response.body())
                     }
-                    Log.e(
+                    Log.i(
                         "RoomDB|getScore",
-                        appDb.ScoreDao().getScore().toString()
+                        "Writing Data to local Room-DB: " + appDb.ScoreDao().getScore().toString()
                     )
-                } else {
-                    leaderboard.value = appDb.ScoreDao().getScore()
                 }
             }
             override fun onFailure(call: Call<List<Score>>, t: Throwable) {
+                leaderboard.value = appDb.ScoreDao().getScore()
+                Log.i("RoomDB|getScore", "getting Leaderboard from local Room-DB")
                 Log.e(
                     "QuizViewModel|getLeaderBoard",
                     t.localizedMessage ?: "call to API onFailure()"
