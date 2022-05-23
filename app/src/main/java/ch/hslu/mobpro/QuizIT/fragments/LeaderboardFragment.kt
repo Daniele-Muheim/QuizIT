@@ -34,7 +34,6 @@ class LeaderboardFragment : Fragment(R.layout.fragment_leaderboard) {
 
     private fun getUsernameList(): ArrayList<String> {
         val list = ArrayList<String>()
-
         for (Score in scoresAsList!!) {
             list.add(Score.username)
         }
@@ -75,6 +74,7 @@ class LeaderboardFragment : Fragment(R.layout.fragment_leaderboard) {
         quizViewModel.leaderboard.observe(this) { apiLeaderboard ->
             scoresAsList = apiLeaderboard
             buildLeaderboard()
+            viewBinding.lastSync.text = quizViewModel.getLastLeaderboardSync()
 
         }
     }
