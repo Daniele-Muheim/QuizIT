@@ -52,7 +52,6 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun getLeaderBoard() {
-        // val userDao = appDB.leaderboardDao()
         val call = quizITAPIService.getLeaderBoard()
         call.enqueue(object : Callback<List<Score>> {
             override fun onResponse(call: Call<List<Score>>, response: Response<List<Score>>) {
