@@ -1,15 +1,12 @@
 package ch.hslu.mobpro.QuizIT.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import ch.hslu.mobpro.QuizIT.Leaderboard
 import ch.hslu.mobpro.QuizIT.QuizViewModel
 import ch.hslu.mobpro.QuizIT.R
 import ch.hslu.mobpro.QuizIT.Score
@@ -84,8 +81,6 @@ class LeaderboardFragment : Fragment(R.layout.fragment_leaderboard) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         viewBinding.startNewQuizButton.setOnClickListener { clickNewQuizButton() }
     }
 
@@ -98,7 +93,7 @@ class LeaderboardFragment : Fragment(R.layout.fragment_leaderboard) {
     }
 
     private fun buildLeaderboard(){
-        val itemAdapter = ItemAdapter(getUsernameList(),getScoreList(), getTimeList())
+        val itemAdapter = ItemAdapter(getUsernameList(), getScoreList(), getTimeList())
         viewBinding.recyclerViewItems.adapter = itemAdapter
         viewBinding.recyclerViewItems.layoutManager = LinearLayoutManager(this.context)
     }

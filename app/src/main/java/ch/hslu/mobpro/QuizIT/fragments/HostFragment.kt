@@ -1,5 +1,6 @@
 package ch.hslu.mobpro.QuizIT.fragments
 
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -54,7 +55,7 @@ class HostFragment : Fragment(R.layout.fragment_host) {
         }
     }
 
-    private fun clickLeaderboardButton () {
+    private fun clickLeaderboardButton() {
         parentFragmentManager
             .beginTransaction()
             .replace(R.id.hostFragment, LeaderboardFragment.newInstance())

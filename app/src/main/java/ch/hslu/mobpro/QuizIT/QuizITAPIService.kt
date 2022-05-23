@@ -1,5 +1,7 @@
 package ch.hslu.mobpro.QuizIT
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -27,12 +29,11 @@ data class Question (
     val questionSet: Int
 )
 
+@Entity
 data class Score (
+    @PrimaryKey(autoGenerate = true)
+    val _id: Long = 0,
     val timeInMilliseconds: Long,
     val score: Int,
     val username: String
-)
-
-data class Leaderboard (
-    val topTenScoresAsList: ArrayList<Score>
 )

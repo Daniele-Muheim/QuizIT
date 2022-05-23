@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import ch.hslu.mobpro.QuizIT.*
 import ch.hslu.mobpro.QuizIT.databinding.FragmentQuizQuestionsBinding
+import kotlin.collections.ArrayList
 
 
 class QuizQuestionsFragment : Fragment(R.layout.fragment_quiz_questions), View.OnClickListener {
@@ -259,7 +260,7 @@ class QuizQuestionsFragment : Fragment(R.layout.fragment_quiz_questions), View.O
     }
 
     private fun postResultToApi(){
-        val score = Score(quizViewModel.stopTimer(),correctAnswersCounter, quizViewModel.getUsername()!!)
+        val score = Score(1, quizViewModel.stopTimer(), correctAnswersCounter, quizViewModel.getUsername()!!)
         quizViewModel.postScore(score)
     }
 

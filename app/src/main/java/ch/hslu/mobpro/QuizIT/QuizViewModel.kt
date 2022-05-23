@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
+import ch.hslu.mobpro.QuizIT.roomDB.AppDatabase
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,8 +18,12 @@ import java.net.HttpURLConnection
 class QuizViewModel(application: Application): AndroidViewModel(application) {
     var questionSet: MutableLiveData<List<Question>> = MutableLiveData()
     val leaderboard: MutableLiveData<List<Score>> = MutableLiveData()
-    val prefs = PreferenceManager.getDefaultSharedPreferences(getApplication<Application>().applicationContext)!!
+    private val prefs = PreferenceManager.getDefaultSharedPreferences(getApplication<Application>().applicationContext)!!
     var startTimeStampInMilliSeconds: Long = 0
+
+    private val appDb by lazy {
+        AppDatabase.getDataBase(getApplication<Application>().applicationContext)
+    }
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .client(OkHttpClient().newBuilder().build())
@@ -47,11 +52,24 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun getLeaderBoard() {
+        // val userDao = appDB.leaderboardDao()
         val call = quizITAPIService.getLeaderBoard()
         call.enqueue(object : Callback<List<Score>> {
             override fun onResponse(call: Call<List<Score>>, response: Response<List<Score>>) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
                     leaderboard.value = response.body()
+
+                    if (appDb.ScoreDao().getScore().isEmpty()) {
+                        appDb.ScoreDao().insertScore(response.body())
+                    } else {
+                        appDb.ScoreDao().updateScore(response.body())
+                    }
+                    Log.e(
+                        "RoomDB|getScore",
+                        appDb.ScoreDao().getScore().toString()
+                    )
+                } else {
+                    leaderboard.value = appDb.ScoreDao().getScore()
                 }
             }
             override fun onFailure(call: Call<List<Score>>, t: Throwable) {
@@ -101,7 +119,7 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun stopTimer(): Long {
-        return System.currentTimeMillis()-startTimeStampInMilliSeconds
+        return System.currentTimeMillis() - startTimeStampInMilliSeconds
     }
 
 }
