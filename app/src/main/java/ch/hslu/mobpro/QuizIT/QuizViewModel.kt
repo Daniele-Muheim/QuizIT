@@ -1,6 +1,5 @@
 package ch.hslu.mobpro.QuizIT
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
