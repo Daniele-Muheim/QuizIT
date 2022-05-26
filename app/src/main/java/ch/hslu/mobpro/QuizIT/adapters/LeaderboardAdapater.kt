@@ -27,7 +27,7 @@ class ItemAdapter(private val usernames: ArrayList<String>, private val scores: 
         val score = scores[position]
         val time = times[position]
         with(holder) {
-            if(username.length > 12){
+            if(username.length > 11){
                 viewBinding.username.text = username.subSequence(0,12)
             } else {
                 viewBinding.username.text = username
