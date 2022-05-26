@@ -1,5 +1,6 @@
 package ch.hslu.mobpro.QuizIT
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -36,7 +37,6 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
     private val quizITAPIService = retrofit.create(QuizITAPIService::class.java)
 
     fun getQuestions() {
-        setEmptyQuestionSet()
         val call = quizITAPIService.getQuestions()
         call.enqueue(object : Callback<List<Question>> {
             override fun onResponse(call: Call<List<Question>>, response: Response<List<Question>>) {
@@ -91,8 +91,6 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
         val call = quizITAPIService.postScore(score)
         call.enqueue(object : Callback<Score> {
             override fun onResponse(call: Call<Score>, response: Response<Score>) {
-                if (response.code() == HttpURLConnection.HTTP_OK) {
-                }
             }
 
             override fun onFailure(call: Call<Score>, t: Throwable) {
@@ -102,11 +100,6 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
                 )
             }
         })
-    }
-
-    fun setEmptyQuestionSet() {
-        val question: List<Question> =  listOf(Question("id", "", "", "", "", "", 404, 0))
-        questionSet.value = question
     }
 
     fun setUsername(username: String){
@@ -123,7 +116,7 @@ class QuizViewModel(application: Application): AndroidViewModel(application) {
         val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy G 'at' HH:mm")
         val currentDateAndTime: String = simpleDateFormat.format(Date())
         val editor = prefs.edit()
-        editor.putString("LASTSYNC", "Last sync: " + currentDateAndTime)
+        editor.putString("LASTSYNC", "Last sync: $currentDateAndTime")
         editor.apply()
     }
 
